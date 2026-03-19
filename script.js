@@ -140,4 +140,27 @@ document.addEventListener('DOMContentLoaded', () => {
         
         setTimeout(() => { sparkle.remove(); }, 1000);
     });
+
+    // Easter Egg Logic
+    const easterEgg = document.getElementById('secret-easter-egg');
+    const modal = document.getElementById('treasure-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+
+    if(easterEgg && modal && closeBtn) {
+        easterEgg.addEventListener('click', () => {
+            // Massive confetti!
+            createConfetti();
+            setTimeout(createConfetti, 500); // double confetti 500ms later for extra celebration!
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            
+            // Hide the egg since it's found
+            easterEgg.style.display = 'none';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    }
 });
