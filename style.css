@@ -279,6 +279,64 @@ footer {
     opacity: 0.8;
 }
 
+/* Check-In Button */
+.check-in-btn {
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, var(--accent), #fbcfe8);
+    color: var(--text-main);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(244, 114, 182, 0.3);
+}
+
+.check-in-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(244, 114, 182, 0.4);
+}
+
+.check-in-btn:disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    transform: none;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Completed Card State */
+.glass-card.completed {
+    border-color: #86efac;
+    background: rgba(220, 252, 231, 0.65);
+}
+
+.glass-card.completed .time-badge {
+    background: #22c55e;
+}
+
+/* Sparkle Cursor */
+.sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    width: 6px;
+    height: 6px;
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--accent);
+    animation: magic-sparkle 1s linear forwards;
+}
+
+@keyframes magic-sparkle {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.5) translateY(10px); opacity: 1; }
+    100% { transform: scale(0) translateY(30px); opacity: 0; }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero {

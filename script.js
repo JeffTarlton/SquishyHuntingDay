@@ -74,4 +74,70 @@ document.addEventListener('DOMContentLoaded', () => {
             }, (animDuration + animDelay) * 1000);
         }
     }
+
+    // Check-in Buttons Logic
+    document.querySelectorAll('.check-in-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = e.target.closest('.glass-card');
+            
+            // Mark as completed
+            card.classList.add('completed');
+            e.target.textContent = '✅ Completed!';
+            e.target.disabled = true;
+
+            // Make some mini confetti originating from the button
+            const rect = e.target.getBoundingClientRect();
+            createMiniConfetti(rect.left + rect.width / 2, rect.top);
+        });
+    });
+
+    function createMiniConfetti(x, y) {
+        for (let i = 0; i < 20; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 6 + 4;
+            
+            confetti.style.backgroundColor = color;
+            confetti.style.left = x + 'px';
+            confetti.style.top = y + 'px';
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            confetti.style.position = 'fixed'; // Ensure it's fixed to the viewport like the main confetti
+            
+            // Random directional velocity
+            const tx = (Math.random() - 0.5) * 200;
+            const ty = (Math.random() - 1) * 200;
+            
+            confetti.animate([
+                { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
+                { transform: `translate3d(${tx}px, ${ty}px, 0) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+            ], {
+                duration: 1000 + Math.random() * 1000,
+                easing: 'cubic-bezier(.37,0,.63,1)',
+                fill: 'forwards'
+            });
+
+            container.appendChild(confetti);
+
+            setTimeout(() => { confetti.remove(); }, 2000);
+        }
+    }
+
+    // Magic Sparkle Cursor
+    document.addEventListener('mousemove', (e) => {
+        // Create one sparkle randomly to avoid overwhelming the DOM
+        if (Math.random() > 0.4) return;
+        
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        // Offset slightly to be right at the cursor pointer
+        sparkle.style.left = (e.clientX - 3) + 'px';
+        sparkle.style.top = (e.clientY - 3) + 'px';
+        
+        document.body.appendChild(sparkle);
+        
+        setTimeout(() => { sparkle.remove(); }, 1000);
+    });
 });
